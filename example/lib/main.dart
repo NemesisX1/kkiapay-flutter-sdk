@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kkiapay_flutter_sdk/kkiapay_flutter_sdk.dart';
 import 'success_screen.dart';
@@ -24,7 +25,7 @@ void callback(response, context) {
     case PAYMENT_INIT:
       debugPrint(PAYMENT_INIT);
       //ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        //content: Text(PAYMENT_INIT),
+      //content: Text(PAYMENT_INIT),
       //));
       break;
 
@@ -53,7 +54,7 @@ void callback(response, context) {
 
 const kkiapay = KKiaPay(
     amount: 1,
-    countries: ["BJ","CI","SN","TG"],
+    countries: ["BJ", "CI", "SN", "TG"],
     phone: "22961000000",
     name: "John Doe",
     email: "email@mail.com",
@@ -118,68 +119,72 @@ class KkiapaySample extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(height: 50,),
-        ButtonTheme(
-          minWidth: 500.0,
-          height: 100.0,
-          child: TextButton(
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(const Color(0xff222F5A)),
-              foregroundColor: MaterialStateProperty.all(Colors.white),
-            ),
-            child: const Text(
-              'Pay Now ( WEB )',
-              style: TextStyle(color: Colors.white),
-            ),
-            onPressed: () {
-              kkiapayWeb.pay(kkiapay, (response){
-                switch (response['status']) {
-                  case PAYMENT_CANCELLED:
-                    debugPrint(PAYMENT_CANCELLED);
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(PAYMENT_CANCELLED),
-                    ));
-                    break;
+        const SizedBox(
+          height: 50,
+        ),
+        // IF YOU WANT TO TEST THIS ONE ON WEB
+        //
+        //   ButtonTheme(
+        //     minWidth: 500.0,
+        //     height: 100.0,
+        //     child: TextButton(
+        //       style: ButtonStyle(
+        //         backgroundColor:
+        //             MaterialStateProperty.all(const Color(0xff222F5A)),
+        //         foregroundColor: MaterialStateProperty.all(Colors.white),
+        //       ),
+        //       child: const Text(
+        //         'Pay Now ( WEB )',
+        //         style: TextStyle(color: Colors.white),
+        //       ),
+        //       onPressed: () {
+        //         kkiapayWeb.pay(kkiapay, (response) {
+        //           switch (response['status']) {
+        //             case PAYMENT_CANCELLED:
+        //               debugPrint(PAYMENT_CANCELLED);
+        //               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //                 content: Text(PAYMENT_CANCELLED),
+        //               ));
+        //               break;
 
-                  case PENDING_PAYMENT:
-                    debugPrint(PENDING_PAYMENT);
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(PENDING_PAYMENT),
-                    ));
-                    break;
+        //             case PENDING_PAYMENT:
+        //               debugPrint(PENDING_PAYMENT);
+        //               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //                 content: Text(PENDING_PAYMENT),
+        //               ));
+        //               break;
 
-                  case PAYMENT_INIT:
-                    debugPrint(PAYMENT_INIT);
-                    //ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    //content: Text(PAYMENT_INIT),
-                    //));
-                    break;
+        //             case PAYMENT_INIT:
+        //               debugPrint(PAYMENT_INIT);
+        //               //ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //               //content: Text(PAYMENT_INIT),
+        //               //));
+        //               break;
 
-                  case PAYMENT_SUCCESS:
-                    debugPrint(PAYMENT_SUCCESS);
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(PAYMENT_SUCCESS),
-                    ));
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SuccessScreen(
-                          amount: response['requestData']['amount'],
-                          transactionId: response['transactionId'],
-                        ),
-                      ),
-                    );
-                    break;
+        //             case PAYMENT_SUCCESS:
+        //               debugPrint(PAYMENT_SUCCESS);
+        //               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //                 content: Text(PAYMENT_SUCCESS),
+        //               ));
+        //               Navigator.push(
+        //                 context,
+        //                 MaterialPageRoute(
+        //                   builder: (context) => SuccessScreen(
+        //                     amount: response['requestData']['amount'],
+        //                     transactionId: response['transactionId'],
+        //                   ),
+        //                 ),
+        //               );
+        //               break;
 
-                  default:
-                    debugPrint(UNKNOWN_EVENT);
-                    break;
-                }
-              });
-            },
-          ),
-        )
+        //             default:
+        //               debugPrint(UNKNOWN_EVENT);
+        //               break;
+        //           }
+        //         });
+        //       },
+        //     ),
+        //   )
       ],
     ));
   }
